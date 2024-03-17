@@ -9,7 +9,7 @@ const AcCard = ({ teamId, device }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSettings(acSettings);
-        }, 500); // Adjust debounce delay as needed
+        }, 500);
 
         return () => {
             clearTimeout(timer);
@@ -52,13 +52,13 @@ const AcCard = ({ teamId, device }) => {
     };
 
     return (
-        <div>
-            <h2>AC Card</h2>
+        <div style={styles.card}>
+            <h2 style={styles.title}>AC Control</h2>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
                 <div>
-                    <label htmlFor="acTemp">Temperature:</label>
+                    <label htmlFor="acTemp" style={styles.label}>Temperature:</label>
                     <input
                         type="range"
                         id="acTemp"
@@ -66,11 +66,12 @@ const AcCard = ({ teamId, device }) => {
                         max="30"
                         value={acSettings.temp}
                         onChange={handleTempChange}
+                        style={styles.rangeInput}
                     />
-                    <span>{acSettings.temp}°C</span>
+                    <span style={styles.span}>{acSettings.temp}°C</span>
                     <br />
-                    <label htmlFor="acState">State:</label>
-                    <select id="acState" value={acSettings.state} onChange={handleStateChange}>
+                    <label htmlFor="acState" style={styles.label}>State:</label>
+                    <select id="acState" value={acSettings.state} onChange={handleStateChange} style={styles.select}>
                         <option value="0">Off</option>
                         <option value="1">On</option>
                     </select>
@@ -78,6 +79,32 @@ const AcCard = ({ teamId, device }) => {
             )}
         </div>
     );
+};
+
+const styles = {
+    card: {
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        padding: '20px',
+        marginBottom: '20px',
+        width: '300px', // Adjust width as needed
+    },
+    title: {
+        textAlign: 'left',
+        marginBottom: '10px',
+    },
+    label: {
+        marginRight: '10px',
+    },
+    rangeInput: {
+        marginRight: '10px',
+    },
+    span: {
+        marginRight: '10px',
+    },
+    select: {
+        marginRight: '10px',
+    },
 };
 
 export default AcCard;

@@ -41,13 +41,13 @@ const FanCard = ({ teamId, device }) => {
     };
 
     return (
-        <div>
-            <h2>Fan Card</h2>
+        <div style={styles.card}>
+            <h2 style={styles.title}>Fan Card</h2>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
                 <div>
-                    <label htmlFor="fanSpeed">Fan Speed:</label>
+                    <label htmlFor="fanSpeed" style={styles.label}>Fan Speed:</label>
                     <input
                         type="range"
                         id="fanSpeed"
@@ -55,12 +55,33 @@ const FanCard = ({ teamId, device }) => {
                         max="5"
                         value={fanSpeed}
                         onChange={handleFanSpeedChange}
+                        style={styles.rangeInput}
                     />
                     <span>{fanSpeed}</span>
                 </div>
             )}
         </div>
     );
+};
+
+const styles = {
+    card: {
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        padding: '20px',
+        marginBottom: '20px',
+        width: '300px', // Adjust width as needed
+    },
+    title: {
+        textAlign: 'left',
+        marginBottom: '10px',
+    },
+    label: {
+        marginRight: '10px',
+    },
+    rangeInput: {
+        marginRight: '10px',
+    },
 };
 
 export default FanCard;
