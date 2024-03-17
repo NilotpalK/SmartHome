@@ -40,7 +40,7 @@ const FanCard = ({ teamId, device }) => {
     return (
         <div style={styles.card}>
             <div style={styles.imageContainer}>
-                <img src="/icons/cooler.png" alt="AC Icon" style={styles.image}/>
+                <img src="/icons/fan.gif" alt="AC Icon" style={styles.image}/>
             </div>
             <h2 style={styles.title}>Fan Card</h2>
             <div>
@@ -103,16 +103,16 @@ const styles = {
         color: '#ffffff',
     },
     imageContainer: {
-        width: '64px',
-        height: '64px',
+        width: '128px', // Increased width
+        height: '128px', // Increased height
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '16px',
     },
     image: {
-        maxWidth: '100%',
-        maxHeight: '100%',
+        maxWidth: '100%', // Ensure the image fits within the container
+        maxHeight: '100%', // Ensure the image fits within the container
     },
 };
 

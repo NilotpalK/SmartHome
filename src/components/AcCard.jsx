@@ -74,16 +74,16 @@ const AcCard = ({ teamId, device }) => {
             marginBottom: '24px',
         },
         imageContainer: {
-            width: '64px',
-            height: '64px',
+            width: '96px', // Increased from 64px
+            height: '96px', // Increased from 64px
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: '16px',
         },
         image: {
-            maxWidth: '100%',
-            maxHeight: '100%',
+            maxWidth: '130%',
+            maxHeight: '130%',
         },
         applyButton: {
             marginTop: '16px',
@@ -96,6 +96,7 @@ const AcCard = ({ teamId, device }) => {
             cursor: 'pointer',
             width: '100px',
         },
+
     };
 
     useEffect(() => {
@@ -105,7 +106,7 @@ const AcCard = ({ teamId, device }) => {
     return (
         <div style={styles.card}>
             <div style={styles.imageContainer}>
-                <img src="/icons/air-conditioner.png" alt="AC Icon" style={styles.image} />
+                <img src="/icons/ac.gif" alt="AC Icon" style={styles.image} />
             </div>
             <h2 style={styles.title}>AC Control</h2>
             <div>
