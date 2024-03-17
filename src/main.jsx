@@ -2,10 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import FanCard from "./components/FanCard.jsx";
-import BulbCard from "./components/BulbCard.jsx";
-import LedCard from "./components/LedCard.jsx";
-import AcCard from "./components/AcCard.jsx";
+
 import CardWrapper from "./components/CardWrapper.jsx";
 
 

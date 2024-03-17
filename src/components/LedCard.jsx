@@ -28,13 +28,18 @@ const LedCard = ({ teamId, device }) => {
 
     const styles = {
         card: {
-            border: '1px solid #e5e5e5',
+
+
+            height: 'auto', // Set the height to 'auto' to adjust based on content
+            minHeight: '300px',
+            border: '1px solid #ffffff',
             borderRadius: '8px',
             padding: '16px',
             marginBottom: '20px',
-            width: '300px',
+            width: '300px', // Fixed width for consistency
+            maxWidth: '100%', // Ensure responsiveness
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#1e1e1e',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -44,20 +49,26 @@ const LedCard = ({ teamId, device }) => {
             textAlign: 'center',
             marginBottom: '16px',
             fontWeight: 'bold',
+            color: '#ffffff',
         },
         inputContainer: {
             display: 'flex',
             alignItems: 'center',
             marginBottom: '16px',
+            flexDirection: 'column',
         },
         label: {
             marginRight: '10px',
+            color: '#ffffff',
         },
         colorInput: {
+            marginTop: '16px',
             marginRight: '10px',
-            padding: '4px',
+            padding: '1px',
             borderRadius: '4px',
-            border: '1px solid #ccc',
+            border: '1px solid #28a745',
+            backgroundColor: '#1e1e1e',
+            width: "50%",
         },
         imageContainer: {
             width: '64px',
@@ -70,18 +81,30 @@ const LedCard = ({ teamId, device }) => {
         image: {
             maxWidth: '100%',
             maxHeight: '100%',
-            alignSelf: 'flex-start', // Align image to the left
+            alignSelf: 'flex-start',
         },
         applyButton: {
-            padding: '6px 12px', // Smaller button padding
-            fontSize: '14px', // Smaller font size
+            marginTop: '16px',
+            padding: '6px 1px',
+            fontSize: '14px',
+            backgroundColor: '#28a745',
+            color: '#ffffff',
+            border: '1px solid #28a745',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            flexGrow: 1,
+            alignSelf: 'stretch',
+        },
+        loadingText: {
+            color: '#28a745', // Change loading text color to green
+            marginTop: '8px', // Add some margin to separate from the button
         },
     };
 
     return (
         <div style={styles.card}>
             <div style={styles.imageContainer}>
-                <img src="/icons/rgb.jpeg" alt="LED Icon" style={styles.image}/>
+                <img src="/icons/led-bulb.png" alt="LED Icon" style={styles.image}/>
             </div>
             <h2 style={styles.title}>LED Control</h2>
 
@@ -98,7 +121,7 @@ const LedCard = ({ teamId, device }) => {
                 />
                 <button onClick={applyLedColor} style={styles.applyButton}>Apply</button>
             </div>
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <p style={styles.loadingText}>Applying...</p>}
         </div>
     );
 };

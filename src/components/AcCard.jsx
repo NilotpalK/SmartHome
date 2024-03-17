@@ -4,38 +4,6 @@ import axios from 'axios';
 const AcCard = ({ teamId, device }) => {
     const [acSettings, setAcSettings] = useState({ temp: 22, state: 0 });
     const [isLoading, setIsLoading] = useState(false);
-    const [debouncedSettings, setDebouncedSettings] = useState(acSettings);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setDebouncedSettings(acSettings);
-        }, 500);
-
-        return () => {
-            clearTimeout(timer);
-        };
-    }, [acSettings]);
-
-    useEffect(() => {
-        const fetchAcSettings = async () => {
-            setIsLoading(true);
-
-            try {
-                const response = await axios.post('https://kodessphere-api.vercel.app', {
-                    teamId,
-                    device,
-                    value: debouncedSettings,
-                });
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error fetching AC settings:', error);
-            }
-
-            setIsLoading(false);
-        };
-
-        fetchAcSettings();
-    }, [teamId, device, debouncedSettings]);
 
     const handleTempChange = (event) => {
         setAcSettings((prevSettings) => ({
@@ -44,22 +12,41 @@ const AcCard = ({ teamId, device }) => {
         }));
     };
 
-    const handleStateChange = (event) => {
+    const handleStateChange = () => {
         setAcSettings((prevSettings) => ({
             ...prevSettings,
-            state: parseInt(event.target.value, 10),
+            state: prevSettings.state === 1 ? 0 : 1,
         }));
+    };
+
+    const fetchAcSettings = async () => {
+        setIsLoading(true);
+
+        try {
+            const response = await axios.post('https://kodessphere-api.vercel.app', {
+                teamId,
+                device,
+                value: acSettings,
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error fetching AC settings:', error);
+        }
+
+        setIsLoading(false);
     };
 
     const styles = {
         card: {
-            border: '1px solid #e5e5e5',
+            border: '1px solid #ffffff',
             borderRadius: '8px',
             padding: '16px',
             marginBottom: '20px',
             width: '300px',
+            height: 'auto',
+            minHeight: '300px',
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#1e1e1e',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -69,6 +56,21 @@ const AcCard = ({ teamId, device }) => {
             textAlign: 'center',
             marginBottom: '16px',
             fontWeight: 'bold',
+            color: '#ffffff',
+        },
+
+        sliderButton: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100px',
+            height: '30px',
+            borderRadius: '15px',
+            background: '#4caf50',
+            color: '#ffffff',
+            cursor: 'pointer',
+            marginTop: '16px'
+
         },
         inputContainer: {
             display: 'flex',
@@ -77,15 +79,21 @@ const AcCard = ({ teamId, device }) => {
         },
         label: {
             marginRight: '10px',
+            color: '#ffffff',
         },
         rangeInput: {
             marginRight: '10px',
+            background: '#4caf50',
         },
         span: {
             marginRight: '10px',
+            color: '#ffffff',
         },
-        select: {
-            marginRight: '10px',
+        sliderButtonContainer: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '24px',
         },
         imageContainer: {
             width: '64px',
@@ -99,13 +107,25 @@ const AcCard = ({ teamId, device }) => {
             maxWidth: '100%',
             maxHeight: '100%',
         },
+        applyButton: {
+            marginTop: '16px',
+            padding: '6px 1px',
+            fontSize: '14px',
+            backgroundColor: '#28a745',
+            color: '#ffffff',
+            border: '1px solid #28a745',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            width: '100px',
+        },
     };
 
     return (
         <div style={styles.card}>
             <div style={styles.imageContainer}>
-                <img src="/path/to/your/image.png" alt="AC Icon" style={styles.image} />
+                <img src="/icons/air-conditioner.png" alt="AC Icon" style={styles.image} />
             </div>
+
             <h2 style={styles.title}>AC Control</h2>
             {isLoading ? (
                 <p>Loading...</p>
@@ -125,18 +145,18 @@ const AcCard = ({ teamId, device }) => {
                     />
                     <span style={styles.span}>{acSettings.temp}°C</span>
                     <br />
-                    <label htmlFor="acState" style={styles.label}>
-                        State:
-                    </label>
-                    <select
-                        id="acState"
-                        value={acSettings.state}
-                        onChange={handleStateChange}
-                        style={styles.select}
-                    >
-                        <option value="0">Off</option>
-                        <option value="1">On</option>
-                    </select>
+                    <div style={styles.sliderButtonContainer}>
+                        <label htmlFor="acState" style={styles.label}>
+                            State:
+                        </label>
+                        <button
+                            id="acState"
+                            onClick={handleStateChange}
+                            style={styles.applyButton}
+                        >
+                            {acSettings.state === 0 ? 'Off' : 'On'}
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
