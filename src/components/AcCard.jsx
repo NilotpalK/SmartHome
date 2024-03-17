@@ -51,14 +51,69 @@ const AcCard = ({ teamId, device }) => {
         }));
     };
 
+    const styles = {
+        card: {
+            border: '1px solid #e5e5e5',
+            borderRadius: '8px',
+            padding: '16px',
+            marginBottom: '20px',
+            width: '300px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            backgroundColor: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        title: {
+            textAlign: 'center',
+            marginBottom: '16px',
+            fontWeight: 'bold',
+        },
+        inputContainer: {
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '16px',
+        },
+        label: {
+            marginRight: '10px',
+        },
+        rangeInput: {
+            marginRight: '10px',
+        },
+        span: {
+            marginRight: '10px',
+        },
+        select: {
+            marginRight: '10px',
+        },
+        imageContainer: {
+            width: '64px',
+            height: '64px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '16px',
+        },
+        image: {
+            maxWidth: '100%',
+            maxHeight: '100%',
+        },
+    };
+
     return (
         <div style={styles.card}>
+            <div style={styles.imageContainer}>
+                <img src="/path/to/your/image.png" alt="AC Icon" style={styles.image} />
+            </div>
             <h2 style={styles.title}>AC Control</h2>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
                 <div>
-                    <label htmlFor="acTemp" style={styles.label}>Temperature:</label>
+                    <label htmlFor="acTemp" style={styles.label}>
+                        Temperature:
+                    </label>
                     <input
                         type="range"
                         id="acTemp"
@@ -70,8 +125,15 @@ const AcCard = ({ teamId, device }) => {
                     />
                     <span style={styles.span}>{acSettings.temp}°C</span>
                     <br />
-                    <label htmlFor="acState" style={styles.label}>State:</label>
-                    <select id="acState" value={acSettings.state} onChange={handleStateChange} style={styles.select}>
+                    <label htmlFor="acState" style={styles.label}>
+                        State:
+                    </label>
+                    <select
+                        id="acState"
+                        value={acSettings.state}
+                        onChange={handleStateChange}
+                        style={styles.select}
+                    >
                         <option value="0">Off</option>
                         <option value="1">On</option>
                     </select>
@@ -79,32 +141,6 @@ const AcCard = ({ teamId, device }) => {
             )}
         </div>
     );
-};
-
-const styles = {
-    card: {
-        border: '1px solid #ccc',
-        borderRadius: '5px',
-        padding: '20px',
-        marginBottom: '20px',
-        width: '300px', // Adjust width as needed
-    },
-    title: {
-        textAlign: 'left',
-        marginBottom: '10px',
-    },
-    label: {
-        marginRight: '10px',
-    },
-    rangeInput: {
-        marginRight: '10px',
-    },
-    span: {
-        marginRight: '10px',
-    },
-    select: {
-        marginRight: '10px',
-    },
 };
 
 export default AcCard;

@@ -41,7 +41,11 @@ const FanCard = ({ teamId, device }) => {
     };
 
     return (
+
         <div style={styles.card}>
+            <div style={styles.imageContainer}>
+                <img src="/icons/img_2.png" alt="AC Icon" style={styles.image}/>
+            </div>
             <h2 style={styles.title}>Fan Card</h2>
             {isLoading ? (
                 <p>Loading...</p>
@@ -66,21 +70,45 @@ const FanCard = ({ teamId, device }) => {
 
 const styles = {
     card: {
-        border: '1px solid #ccc',
-        borderRadius: '5px',
-        padding: '20px',
+        border: '1px solid #e5e5e5',
+        borderRadius: '8px',
+        padding: '16px',
         marginBottom: '20px',
-        width: '300px', // Adjust width as needed
+        width: '300px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#ffffff',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     title: {
-        textAlign: 'left',
-        marginBottom: '10px',
+        textAlign: 'center',
+        marginBottom: '16px',
+        fontWeight: 'bold',
+    },
+    inputContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '16px',
     },
     label: {
         marginRight: '10px',
     },
-    rangeInput: {
+    checkbox: {
         marginRight: '10px',
+    },
+    imageContainer: {
+        width: '64px',
+        height: '64px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: '16px',
+    },
+    image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
     },
 };
 
