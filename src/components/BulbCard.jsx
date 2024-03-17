@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BulbCard = ({ teamId, device }) => {
@@ -6,6 +6,19 @@ const BulbCard = ({ teamId, device }) => {
 
     const handleBulbStateChange = () => {
         setBulbState(bulbState === 0 ? 1 : 0);
+    };
+
+    const fetchBulbState = async () => {
+        try {
+            const response = await axios.post('https://kodessphere-api.vercel.app', {
+                teamId,
+                device,
+                value: bulbState,
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error fetching bulb state:', error);
+        }
     };
 
     const styles = {
@@ -57,14 +70,18 @@ const BulbCard = ({ teamId, device }) => {
             marginTop: '16px',
             padding: '6px 1px',
             fontSize: '14px',
-            backgroundColor: '#28a745',
-            color: '#ffffff',
+            backgroundColor: bulbState === 1 ? '#28a745' : 'transparent',
+            color: bulbState === 1 ? '#ffffff' : '#28a745',
             border: '1px solid #28a745',
             borderRadius: '4px',
             cursor: 'pointer',
             width: '100px',
         },
     };
+
+    useEffect(() => {
+        fetchBulbState();
+    }, [bulbState]);
 
     return (
         <div style={styles.card}>
@@ -73,9 +90,7 @@ const BulbCard = ({ teamId, device }) => {
             </div>
             <h2 style={styles.title}>Bulb Control</h2>
             <div style={styles.inputContainer}>
-                <label htmlFor="bulbState" style={styles.label}>
-                    Bulb State:
-                </label>
+
                 <button
                     id="bulbState"
                     onClick={handleBulbStateChange}

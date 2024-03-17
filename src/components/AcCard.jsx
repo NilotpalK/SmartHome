@@ -51,34 +51,12 @@ const AcCard = ({ teamId, device }) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            color: 'white'
         },
         title: {
             textAlign: 'center',
             marginBottom: '16px',
             fontWeight: 'bold',
-            color: '#ffffff',
-        },
-
-        sliderButton: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100px',
-            height: '30px',
-            borderRadius: '15px',
-            background: '#4caf50',
-            color: '#ffffff',
-            cursor: 'pointer',
-            marginTop: '16px'
-
-        },
-        inputContainer: {
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '16px',
-        },
-        label: {
-            marginRight: '10px',
             color: '#ffffff',
         },
         rangeInput: {
@@ -111,54 +89,53 @@ const AcCard = ({ teamId, device }) => {
             marginTop: '16px',
             padding: '6px 1px',
             fontSize: '14px',
-            backgroundColor: '#28a745',
-            color: '#ffffff',
-            border: '1px solid #28a745',
+            color: acSettings.state === 0 ? '#4caf50' : '#ffffff',
+            backgroundColor: acSettings.state === 0 ? 'transparent' : '#28a745',
+            border: `1px solid ${acSettings.state === 0 ? '#4caf50' : '#28a745'}`,
             borderRadius: '4px',
             cursor: 'pointer',
             width: '100px',
         },
     };
 
+    useEffect(() => {
+        fetchAcSettings();
+    }, [acSettings]);
+
     return (
         <div style={styles.card}>
             <div style={styles.imageContainer}>
                 <img src="/icons/air-conditioner.png" alt="AC Icon" style={styles.image} />
             </div>
-
             <h2 style={styles.title}>AC Control</h2>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <div>
-                    <label htmlFor="acTemp" style={styles.label}>
-                        Temperature:
+            <div>
+                <label htmlFor="acTemp" style={styles.label}>
+                    Temperature:
+                </label>
+                <input
+                    type="range"
+                    id="acTemp"
+                    min="16"
+                    max="30"
+                    value={acSettings.temp}
+                    onChange={handleTempChange}
+                    style={styles.rangeInput}
+                />
+                <span style={styles.span}>{acSettings.temp}°C</span>
+                <br />
+                <div style={styles.sliderButtonContainer}>
+                    <label htmlFor="acState" style={styles.label}>
+
                     </label>
-                    <input
-                        type="range"
-                        id="acTemp"
-                        min="16"
-                        max="30"
-                        value={acSettings.temp}
-                        onChange={handleTempChange}
-                        style={styles.rangeInput}
-                    />
-                    <span style={styles.span}>{acSettings.temp}°C</span>
-                    <br />
-                    <div style={styles.sliderButtonContainer}>
-                        <label htmlFor="acState" style={styles.label}>
-                            State:
-                        </label>
-                        <button
-                            id="acState"
-                            onClick={handleStateChange}
-                            style={styles.applyButton}
-                        >
-                            {acSettings.state === 0 ? 'Off' : 'On'}
-                        </button>
-                    </div>
+                    <button
+                        id="acState"
+                        onClick={handleStateChange}
+                        style={styles.applyButton}
+                    >
+                        {acSettings.state === 0 ? 'Off' : 'On'}
+                    </button>
                 </div>
-            )}
+            </div>
         </div>
     );
 };
